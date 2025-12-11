@@ -3,26 +3,32 @@ import { withSentryConfig } from '@sentry/nextjs';
 
 // Define the base Next.js configuration
 const baseConfig: NextConfig = {
+  output: 'standalone',
   images: {
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'api.slingacademy.com',
-        port: ''
+        port: '',
       },
       {
         protocol: 'https',
         hostname: 'img.clerk.com',
-        port: ''
+        port: '',
       },
       {
         protocol: 'https',
         hostname: 'clerk.com',
-        port: ''
-      }
-    ]
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'utfs.io',
+        port: '',
+      },
+    ],
   },
-  transpilePackages: ['geist']
+  transpilePackages: ['geist'],
 };
 
 let configWithPlugins = baseConfig;
@@ -46,7 +52,7 @@ if (!process.env.NEXT_PUBLIC_SENTRY_DISABLED) {
 
     // Upload a larger set of source maps for prettier stack traces (increases build time)
     reactComponentAnnotation: {
-      enabled: true
+      enabled: true,
     },
 
     // Route browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers.
@@ -59,7 +65,7 @@ if (!process.env.NEXT_PUBLIC_SENTRY_DISABLED) {
     disableLogger: true,
 
     // Disable Sentry telemetry
-    telemetry: false
+    telemetry: false,
   });
 }
 
